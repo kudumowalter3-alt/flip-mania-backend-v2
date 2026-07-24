@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: flip-mania-backend
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: FLIPMANIA_SECRET_KEY
+        generateValue: true
+      - key: FLIPMANIA_ALLOWED_ORIGINS
+        value: "https://YOUR-NETLIFY-SITE.netlify.app"
+      - key: FLIPMANIA_DATABASE_URL
+        sync: false  # set manually: sqlite:////var/data/flipmania.db (needs a Render disk)
+                     # or a Render Postgres connection string, e.g.
+                     # postgresql://user:pass@host/dbname
+    disk:
+      name: flipmania-data
+      mountPath: /var/data
+      sizeGB: 1
