@@ -15,7 +15,3 @@ services:
         sync: false  # set manually: sqlite:////var/data/flipmania.db (needs a Render disk)
                      # or a Render Postgres connection string, e.g.
                      # postgresql://user:pass@host/dbname
-    disk:
-      name: flipmania-data
-      mountPath: /var/data
-      sizeGB: 1
